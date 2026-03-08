@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AI Medical Symptom Checker</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<h1>AI Medical Symptom Checker</h1>
+
+<form method="POST">
+
+<select name="symptom1" class="symptom-select">
+{% for symptom in symptoms %}
+<option value="{{symptom}}">{{symptom}}</option>
+{% endfor %}
+</select>
+
+<select name="symptom2" class="symptom-select">
+{% for symptom in symptoms %}
+<option value="{{symptom}}">{{symptom}}</option>
+{% endfor %}
+</select>
+
+<select name="symptom3" class="symptom-select">
+{% for symptom in symptoms %}
+<option value="{{symptom}}">{{symptom}}</option>
+{% endfor %}
+</select>
+
+<br><br>
+
+<button type="submit">Predict Disease</button>
+
+</form>
+
+{% if predictions %}
+
+<h2>Top Predictions</h2>
+
+<ul>
+
+{% for disease,prob in predictions %}
+
+<li>{{disease}} — {{(prob*100)|round(2)}}%</li>
+
+{% endfor %}
+
+</ul>
+
+<h3>Precautions</h3>
+
+<ul>
+
+{% for tip in advice %}
+
+<li>{{tip}}</li>
+
+{% endfor %}
+
+</ul>
+
+{% endif %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+
+<script>
+
+$('.symptom-select').select2({
+placeholder:"Search symptoms"
+});
+
+</script>
+
+</body>
+
+</html>
